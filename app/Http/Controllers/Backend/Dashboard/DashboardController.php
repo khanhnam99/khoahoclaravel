@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 
 class DashboardController extends BackendController
 {
-    //
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index() {
 
-        return 1;
+        return 10;
     }
 }

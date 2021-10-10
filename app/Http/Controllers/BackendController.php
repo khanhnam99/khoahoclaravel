@@ -21,25 +21,25 @@ class BackendController extends BaseController
 
     public function __construct()
     {
-//        $this->_ref = Request()->get('_ref', null);
-//        View::share('title', 'Dashboard');
-//        View::share('description', '1');
-//        View::share('keywords', '1');
-//        View::share('author', '1');
-//        //View::share('current_url', \App\Utils\Common::J_getCurUrl());
-//
-//        $route = Route::current();
-//        $name = Route::currentRouteName();
-//        $action = Route::currentRouteAction();
-//
-//        $routeArray = app('request')->route()->getAction();
-//        $controllerAction = class_basename($routeArray['controller']);
-//        list($controller, $action) = explode('@', $controllerAction);
-//        View::share('controller', $controller);
-//        View::share('action', $action);
-//        View::share('routeCurrentName', $route);
-//        View::share('routeName', $name);
-//        View::share('actionName', $action);
+        $this->_ref = Request()->get('_ref', null);
+        View::share('title', 'Dashboard');
+        View::share('description', '1');
+        View::share('keywords', '1');
+        View::share('author', '1');
+        //View::share('current_url', \App\Utils\Common::J_getCurUrl());
+
+        $route = Route::current();
+        $name = Route::currentRouteName();
+        $action = Route::currentRouteAction();
+
+        $routeArray = app('request')->route()->getAction();
+        $controllerAction = class_basename($routeArray['controller']);
+        list($controller, $action) = explode('@', $controllerAction);
+        View::share('controller', $controller);
+        View::share('action', $action);
+        View::share('routeCurrentName', $route);
+        View::share('routeName', $name);
+        View::share('actionName', $action);
 
     }
 }
