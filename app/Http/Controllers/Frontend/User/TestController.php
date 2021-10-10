@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Frontend\User;
 
+use App\Http\Controllers\BackendController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TestController extends Controller
+class TestController extends BackendController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,8 @@ class TestController extends Controller
      */
     public function index()
     {
-        //
+        echo 1;
+        exit;
     }
 
     /**

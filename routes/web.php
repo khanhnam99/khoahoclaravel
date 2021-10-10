@@ -19,4 +19,5 @@ Route::get('/', function () {
 
 // For User
 Route::any('test', [\App\Http\Controllers\Frontend\User\UserController::class, 'index'])->name('frontend.user.index');
+Route::any('acp/login', [\App\Http\Controllers\Auth\BackendLoginController::class, 'login'])->name('backend.admin.login');
 

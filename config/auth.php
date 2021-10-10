@@ -40,9 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'api' => [
-            'driver' => 'jwt',
-            'provider' => 'users',
+        'backend' => [
+            'driver'   => 'session',
+            'provider' => 'backend',
         ],
     ],
 
@@ -67,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\Users\User::class,
+        ],
+        'backend' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\Admin\Admin::class,
         ],
 
         // 'users' => [
