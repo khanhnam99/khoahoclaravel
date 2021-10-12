@@ -40,7 +40,7 @@ class BackendLoginController extends BackendController
                 'status' => 1];
 
             if ( Auth::guard('backend')->attempt($credentials, true) ) {
-                $request->session()->regenerate();
+                //$request->session()->regenerate();
                 return redirect(Route('backend.dashboard.index'));
 
             }

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Route;
 use View;
 use Auth;
+use Illuminate\Support\Facades\Crypt;
 
 
 class BackendController extends BaseController
@@ -35,11 +36,16 @@ class BackendController extends BaseController
         $routeArray = app('request')->route()->getAction();
         $controllerAction = class_basename($routeArray['controller']);
         list($controller, $action) = explode('@', $controllerAction);
+
         View::share('controller', $controller);
         View::share('action', $action);
         View::share('routeCurrentName', $route);
         View::share('routeName', $name);
         View::share('actionName', $action);
 
+    }
+
+    public function demo(){
+        return 'demo';
     }
 }
