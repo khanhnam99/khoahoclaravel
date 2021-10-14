@@ -18,6 +18,7 @@ class Test extends Authenticatable
     protected $guarded = 'backend';
     /**
      * The attributes that are mass assignable.
+     * This is demo
      *
      * @var string[]
      */
