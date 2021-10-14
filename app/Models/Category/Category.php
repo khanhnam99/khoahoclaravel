@@ -1,22 +1,19 @@
 <?php
 
-namespace App\Models\Posts;
+namespace App\Models\Category;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PostLang extends Model
+class Category extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
-    const TABLE = 'posts_lang';
+    const TABLE = 'category';
     protected $table = self::TABLE;
     protected $fillable = [
-        'post_id',
-        'lang',
-        'name',
-        'description',
-        'short_description',
+        'status',
         'created_at',
         'updated_at',
     ];
