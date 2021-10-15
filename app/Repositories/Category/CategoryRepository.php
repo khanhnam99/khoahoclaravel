@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories\Category;
 
 
@@ -18,21 +19,25 @@ class CategoryRepository extends BaseRepository
     {
         $params = array_merge([
             'status' => [],
+            'lang' => 'vi',
+            'keyword' => null,
         ], $params);
 
         $result = Category::select(
             Category::TABLE . '.*',
             CategoryLang::TABLE . '.*'
         );
-        $result->leftJoin(CategoryLang::TABLE, CategoryLang::TABLE.'.category_id', '=', Category::TABLE.'.id');
 
-//        if ( !empty($params['status']) && is_array($params['status']) ) {
-//            $params['status'] = implode(',', $params['status']);
-//            $result->whereRaw("FIND_IN_SET(" . User::TABLE . ".status,'" . $params['status'] . "')");
-//        }
+        $result->leftJoin(CategoryLang::TABLE, function ( $join ) use ( $params ) {
+            $lang = 'vi';
+            $join->on(CategoryLang::TABLE . '.category_id', '=', Category::TABLE . '.id')->where(CategoryLang::TABLE . '.lang', $lang);
+        });
+
+        if ( !empty($params['keyword']) ) {
+            $result->where(CategoryLang::TABLE . '.name', 'LIKE', '%' . $params['keyword'] . '%');
+        }
 
         $result->orderBy(Category::TABLE . '.id', 'desc');
-
         return empty($limit) ? $result->get() : $result->paginate(config('pagination.per_page'));
     }
 }
