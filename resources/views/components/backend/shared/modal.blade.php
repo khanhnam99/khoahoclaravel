@@ -9,6 +9,7 @@
                 <p>Are you sure you want to delete?.</p>
             </div>
             <div class="modal-footer">
+                <input id="urlRedirect" name="urlRedirect" value="{{ $urlRedirect ?? ''}}" type="hidden">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Submit</button>
             </div>

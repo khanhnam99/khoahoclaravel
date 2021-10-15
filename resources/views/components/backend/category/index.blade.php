@@ -81,9 +81,9 @@
         </div>
     </div>
 
-    @include('components.backend.shared.modal',['url' => 'complete'])
+    @include('components.backend.shared.modal',['urlRedirect' => Route('backend.category.index')])
     <x-slot name="javascript">
-        <script src="{{ asset('backend/assets/js/backend/category/category.js') }}"></script>
+        <script src="{{ asset('backend/assets/js/backend/common/delete.js') }}"></script>
     </x-slot>
 
 </x-layout.backend>
