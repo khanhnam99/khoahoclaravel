@@ -8,14 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    const TABLE = 'category';
+    const TABLE = 'categories';
     protected $table = self::TABLE;
     protected $fillable = [
-        'parentId',
+        'parent_id',
         'title',
-        'metaTitle',
+        'meta_title',
         'slug',
         'content'
     ];
-    protected $timestamps = false;
+    protected $timestamps = true;
+
+    /**
+     * The categories that belong to the product.
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_category', 'category_id', 'product_id');
+    }
 }
