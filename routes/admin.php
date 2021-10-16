@@ -28,6 +28,10 @@ Route::prefix('acp')->group(function () {
         //Category
         Route::get('/category', [\App\Http\Controllers\Backend\Category\CategoryController::class, 'index'])->name('backend.category.index');
 
+
+        //Post
+        Route::get('/posts', [\App\Http\Controllers\Backend\Posts\PostController::class, 'index'])->name('backend.posts.index');
+
     });
 });
 
