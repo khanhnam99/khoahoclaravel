@@ -37,7 +37,7 @@
 
                                             <div class="col-12">
                                                 <label for="inputAddress3" class="form-label">Description</label>
-                                                <textarea class="form-control" id="inputAddress2" name="locales[vi][description]" maxlength="500" rows="4" aria-describedby="settingsAboutHelp">{{ old("locales")['vi']['description'] }}</textarea>
+                                                <textarea class="form-control" id="inputAddress2"  name="locales[vi][description]" maxlength="500" rows="4" aria-describedby="settingsAboutHelp">{{ old("locales")['vi']['description'] }}</textarea>
                                             </div>
 
                                             <div class="col-12">

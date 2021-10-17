@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -40,6 +41,14 @@ class Handler extends ExceptionHandler
 
         });
 
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if ($request->is('acp/*')) {
+                return 404;
+                //return redirect()->route('backend.dashboard.index');
+            }
+        });
+
+
         $this->renderable(function (MethodNotAllowedHttpException $e, $request) {
             if ($request->is('acp/*')) {
                 return redirect()->route('backend.dashboard.index');
@@ -48,6 +57,18 @@ class Handler extends ExceptionHandler
 
 
     }
+
+
+    public function render($request, Throwable $exception){
+
+        if ($exception instanceof NotFoundHttpException) {
+            echo 1;
+            exit;
+            return response()->view('errors.404', [], 404);
+        }
+    }
+
+
 //    public function render($request, Throwable $exception){
 //
 //        // dành cho admin

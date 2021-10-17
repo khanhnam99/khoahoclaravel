@@ -35,8 +35,8 @@ class PostController extends BackendController
     public function index( Request $request )
     {
 
-        $category = $this->postRepos->getAll([]);
         $params = $request->only(['keyword', 'status']);
+        $category = $this->postRepos->getAll($params,10);
         $total = !empty($category->total()) ? $category->total() : 0;
         $perPage = !empty($category->perPage()) ? $category->perPage() : 1;
         $this->data['items'] = $category;
@@ -94,18 +94,21 @@ class PostController extends BackendController
             $this->postLangRepos->insert($locales,$post->id);
 
             if ($request->hasfile('files')) {
+                $aImage = [];
                 foreach($request->file('files') as $key => $file)
                 {
                     $path = $file->store('public/products');
-                    $photo = new Image();
-                    $photo->url = $file->hashName();
-                    $post->image()->save($photo);
+                    $aImage[] = $file->hashName();
 
 //                    $ss = $file->hashName();
 //                    $name = $file->getClientOriginalName();
 //                    $insert[$key]['name'] = $name;
 //                    $insert[$key]['path'] = $path;
                 }
+
+                $photo = new Image();
+                $photo->url = json_encode($aImage);
+               $post->image()->save($photo);
             }
 
             return redirect()->route('backend.posts.index')->with('success', 'Success');

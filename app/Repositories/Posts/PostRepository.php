@@ -57,6 +57,6 @@ class PostRepository extends BaseRepository
 
         $result->orderBy(Post::TABLE . '.id', 'desc');
 
-        return empty($limit) ? $result->get() : $result->paginate(config('pagination.per_page'));
+        return empty($limit) ? $result->get() : $result->paginate($limit);
     }
 }

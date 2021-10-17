@@ -10,6 +10,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
+
 class PostRequest extends FormRequest
 {
     /**
@@ -35,10 +36,10 @@ class PostRequest extends FormRequest
             'locales.en.name' => 'bail|required|max:255',
         ];
 
-        $photos = count(request()->file('files'));
-        foreach(range(0, $photos) as $index) {
-            $rules['files.' . $index] = 'nullable|image|mimes:jpeg,bmp,png|max:2000';
-        }
+//        $photos = count(request()->file('files'));
+//        foreach(range(0, $photos) as $index) {
+//            $rules['files.' . $index] = 'nullable|image|mimes:jpeg,bmp,png|max:2000';
+//        }
 
         return $rules;
     }
@@ -53,6 +54,7 @@ class PostRequest extends FormRequest
     public function withValidator($validator){
        // return back()->withInput();
     }
+
     protected function failedValidation(Validator $validator)
     {
        // return back()->withInput();

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Route;
 use View;
 use Auth;
+use App;
 use Illuminate\Support\Facades\Crypt;
 
 
@@ -22,6 +23,7 @@ class BackendController extends BaseController
 
     public function __construct()
     {
+        //App::setLocale($s);
         $this->_ref = Request()->get('_ref', null);
         View::share('title', 'Dashboard');
         View::share('description', '1');
