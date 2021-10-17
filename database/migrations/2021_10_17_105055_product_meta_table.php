@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ProductsTable extends Migration
+class ProductMetaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,12 @@ class ProductsTable extends Migration
     public function up()
     {
         //
-        Schema::create('products',function(Blueprint $talble){
-            $table ->id();
-            $table ->bigInteger('userId');
-            $table ->varchar('title',256); 
+        Schema::create('product_meta', function(Blueprint $table){
+            $table->id();
+            $table->bigInteger('productId');
+            $table->string('key',150);
+            $table->string('contain',250);
+            $table->timestamps();
         });
     }
 
