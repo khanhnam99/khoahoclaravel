@@ -26,11 +26,18 @@ Route::prefix('acp')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('backend.dashboard.index');
 
         //Category
-        Route::get('/category', [\App\Http\Controllers\Backend\Category\CategoryController::class, 'index'])->name('backend.category.index');
+        Route::prefix('category')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Backend\Category\CategoryController::class, 'index'])->name('backend.category.index');
+        });
 
 
         //Post
-        Route::get('/posts', [\App\Http\Controllers\Backend\Posts\PostController::class, 'index'])->name('backend.posts.index');
+        Route::prefix('posts')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Backend\Posts\PostController::class, 'index'])->name('backend.posts.index');
+            Route::get('/create', [\App\Http\Controllers\Backend\Posts\PostController::class, 'create'])->name('backend.posts.create');
+            Route::post('/store', [\App\Http\Controllers\Backend\Posts\PostController::class, 'store'])->name('backend.posts.store');
+        });
+
 
     });
 });

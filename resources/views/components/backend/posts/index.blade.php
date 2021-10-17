@@ -37,7 +37,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @if(count($items) > 0)
+                                            @if(!empty($items) && count($items) > 0)
                                                 @foreach($items as $item)
                                                     <tr>
                                                         <th scope="row">{{ $offset }}</th>
@@ -71,7 +71,7 @@
 
                         </div>
 
-                        @if(count($items) > 0)
+                        @if(!empty($items) && count($items) > 0)
                             {!! $pager !!}
                         @endif
 
