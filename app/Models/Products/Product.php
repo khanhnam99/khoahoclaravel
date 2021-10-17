@@ -11,9 +11,9 @@ class Product extends Model
     const TABLE ='products';
     protected $table = self::TABLE;
     protected $fillable = [
-        'userId',
+        'user_id',
         'title',
-        'metaTitle',
+        'meta_title',
         'slug',
         'summary',
         'type',
@@ -22,11 +22,25 @@ class Product extends Model
         'discount',
         'quantity',
         'shop',
-        'createdAt',
-        'updatedAt',
-        'publishedAt',
-        'startsAt',
-        'endsAt',
+        'published_at',
+        'starts_at',
+        'ends_at',
         'content',
     ];
+
+    /**
+     * The products that belong to the category.
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'product_category', 'category_id', 'product_id');
+    }
+
+    /**
+     * The product that belong to the tags.
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'product_tag', 'product_id', 'tag_id');
+    }
 }
