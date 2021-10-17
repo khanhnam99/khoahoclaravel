@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Posts;
 use App\Helpers\PaginationHelper;
 use App\Http\Controllers\BackendController;
 use App\Http\Requests\Backend\Posts\PostRequest;
+use App\Models\Images\Image;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Modules\ModuleRepository;
 use App\Repositories\Posts\PostLangRepository;
@@ -77,11 +78,36 @@ class PostController extends BackendController
 
         //$status = $request->input('status', 0);
         if ($request->isMethod('post')) {
+
+           // $path = $request->file('files')->store('public/products');
+//            $path = $request->file('image')->storeAs(
+//                'avatars', $request->user()->id
+//            );
+
+
+
+
             $locales  = $request->locales;
             $params = $request->only('module_id', 'category_id','status');
             $params['status'] = !empty($request->status) ? 1 : 0;
             $post = $this->postRepos->create($params);
             $this->postLangRepos->insert($locales,$post->id);
+
+            if ($request->hasfile('files')) {
+                foreach($request->file('files') as $key => $file)
+                {
+                    $path = $file->store('public/products');
+                    $photo = new Image();
+                    $photo->url = $file->hashName();
+                    $post->image()->save($photo);
+
+//                    $ss = $file->hashName();
+//                    $name = $file->getClientOriginalName();
+//                    $insert[$key]['name'] = $name;
+//                    $insert[$key]['path'] = $path;
+                }
+            }
+
             return redirect()->route('backend.posts.index')->with('success', 'Success');
         }
         return redirect()->route('backend.posts.index');

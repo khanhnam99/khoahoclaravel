@@ -10,6 +10,7 @@
                     </div>
                 </div>
                 <div class="row">
+                    <img src="{{ asset('public/storage/products/CUMgUljLDaAiZ2B8fKqpGFUo8HVrwfrlr1qwSTWe.png') }}" class="img img-thumbnail">
                     <div class="col">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb breadcrumb-container breadcrumb-separator-chevron">

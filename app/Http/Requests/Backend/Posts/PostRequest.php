@@ -29,10 +29,18 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+
+        $rules = [
             'locales.vi.name' => 'bail|required|max:255',
             'locales.en.name' => 'bail|required|max:255',
         ];
+
+        $photos = count(request()->file('files'));
+        foreach(range(0, $photos) as $index) {
+            $rules['files.' . $index] = 'nullable|image|mimes:jpeg,bmp,png|max:2000';
+        }
+
+        return $rules;
     }
 
     public function messages(){

@@ -69,6 +69,11 @@
                                             @endif
 
                                             <div class="col-12">
+                                                <label for="inputState" class="form-label">Module</label>
+                                                <input type="file" id="files" name="files[]" multiple>
+                                            </div>
+
+                                            <div class="col-12">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" id="status" name="status">
                                                     <label class="form-check-label" for="status">
