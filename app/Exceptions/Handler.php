@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -35,7 +36,30 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+
+
         });
+
+        $this->renderable(function (MethodNotAllowedHttpException $e, $request) {
+            if ($request->is('acp/*')) {
+                return redirect()->route('backend.dashboard.index');
+            }
+        });
+
+
     }
+//    public function render($request, Throwable $exception){
+//
+//        // dành cho admin
+//        if ($request->is('acp/*')) {
+//            if ($exception instanceof MethodNotAllowedHttpException) {
+//                return redirect()->route('backend.dashboard.index');
+//            }
+//        }
+//
+//
+//        if ($request->is('api/*')) {
+//
+//        }
+//    }
 }

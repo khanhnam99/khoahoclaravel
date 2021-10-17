@@ -7,6 +7,7 @@ use App\Http\Controllers\BackendController;
 use App\Http\Requests\Backend\Posts\PostRequest;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Modules\ModuleRepository;
+use App\Repositories\Posts\PostLangRepository;
 use App\Repositories\Posts\PostRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -14,14 +15,20 @@ use Illuminate\Support\Arr;
 class PostController extends BackendController
 {
     //
-    protected $postRepos, $moduleRepos, $categoryRepos;
+    protected $postRepos, $moduleRepos, $categoryRepos,$postLangRepos;
     protected $data = [];
 
-    public function __construct( PostRepository $postRepos, ModuleRepository $moduleRepos, CategoryRepository $categoryRepos )
+    public function __construct(
+        PostRepository $postRepos,
+        ModuleRepository $moduleRepos,
+        CategoryRepository $categoryRepos,
+        PostLangRepository  $postLangRepos
+    )
     {
         $this->postRepos = $postRepos;
         $this->moduleRepos = $moduleRepos;
         $this->categoryRepos = $categoryRepos;
+        $this->postLangRepos = $postLangRepos;
     }
 
     public function index( Request $request )
@@ -42,6 +49,7 @@ class PostController extends BackendController
     public function create()
     {
 
+        $this->data['post'] = [];
         $this->data['modules'] = $this->moduleRepos->getAll([]);
         $this->data['category'] = $this->categoryRepos->getAll([]);
         return view('components.backend.posts.create', $this->data);
@@ -49,12 +57,34 @@ class PostController extends BackendController
 
     public function store( PostRequest $request )
     {
+        //$name = $request->input('name');
+        //if ($request->isMethod('post')) {
+        //$value = $request->header('X-Header-Name');
+        //if ($request->hasHeader('X-Header-Name'))
+        //$token = $request->bearerToken();
+        //$ipAddress = $request->ip();
+        //$input = $request->all();
+        //$input = $request->only('username', 'password');
 
+//        if ($request->has('name')) {
+//            //
+//        }
+
+//        if ($request->hasFile('photo')) {
+//            //
+//        }
         // Retrieve a portion of the validated input data...
-        $validated = $request->safe()->only(['name', 'email']);
-        $validated = $request->safe()->except(['name', 'email']);
 
-        return 1;
+        //$status = $request->input('status', 0);
+        if ($request->isMethod('post')) {
+            $locales  = $request->locales;
+            $params = $request->only('module_id', 'category_id','status');
+            $params['status'] = !empty($request->status) ? 1 : 0;
+            $post = $this->postRepos->create($params);
+            $this->postLangRepos->insert($locales,$post->id);
+            return redirect()->route('backend.posts.index')->with('success', 'Success');
+        }
+        return redirect()->route('backend.posts.index');
     }
 
     public function show( Request $request )

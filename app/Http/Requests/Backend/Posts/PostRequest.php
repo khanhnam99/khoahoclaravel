@@ -9,7 +9,6 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use App\Http\Requests\Request;
 
 class PostRequest extends FormRequest
 {

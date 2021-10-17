@@ -45,28 +45,33 @@
                                                 <textarea class="form-control" name="locales[en][description]" id="inputAddress3" maxlength="500" rows="4" aria-describedby="settingsAboutHelp">{{ old("locales")['en']['description'] }}</textarea>
                                             </div>
 
-
+                                            @if(!empty($category))
                                             <div class="col-md-12">
-                                                <label for="inputState" class="form-label">Module</label>
+                                                <label for="inputState" class="form-label">Category</label>
                                                 <select id="inputState" class="form-select" name="category_id">
-                                                    <option selected="" {{ old('name') == 1 ? "selected" : "" }}>Choose...</option>
-                                                    <option>...</option>
+                                                    @foreach($category as $cate)
+                                                    <option value="{{ $cate->id }}"  {{ old('name') == 1 ? "selected" : "" }}>{{ $cate->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
+                                            @endif
 
 
+                                            @if(!empty($modules))
                                             <div class="col-md-12">
                                                 <label for="inputState" class="form-label">Module</label>
                                                 <select id="inputState" class="form-select" name="module_id">
-                                                    <option selected="" {{ old('name') == 1 ? "selected" : "" }}>Choose...</option>
-                                                    <option>...</option>
+                                                    @foreach($modules as $module)
+                                                        <option value="{{ $module->id }}"  {{ old('module_id') == 1 ? "selected" : "" }}>{{ $module->name  }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
+                                            @endif
 
                                             <div class="col-12">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                                                    <label class="form-check-label" for="gridCheck">
+                                                    <input class="form-check-input" type="checkbox" id="status" name="status">
+                                                    <label class="form-check-label" for="status">
                                                         Active ?
                                                     </label>
                                                 </div>
