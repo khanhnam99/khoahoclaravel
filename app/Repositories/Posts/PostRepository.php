@@ -59,7 +59,7 @@ class PostRepository extends BaseRepository
         });
 
         if ( !empty($params['keyword']) ) {
-            $result->where(PostLang::TABLE .'.name', 'like', '%'.$params['keyword'].'%');
+            $result->where(PostLang::TABLE . '.name', 'like', '%' . $params['keyword'] . '%');
         }
 
         if ( !empty($params['status']) && is_array($params['status']) ) {
@@ -69,11 +69,11 @@ class PostRepository extends BaseRepository
 
         if ( !empty($params['category_id']) ) {
             $params['category_id'] = explode(',', $params['category_id']);
-            $result->whereIn(Post::TABLE.'.category_id', $params['category_id']);
+            $result->whereIn(Post::TABLE . '.category_id', $params['category_id']);
         }
 
         if ( !empty($params['module_id']) ) {
-            $result->where(Post::TABLE.'.module_id', (int) $params['module_id']);
+            $result->where(Post::TABLE . '.module_id', (int) $params['module_id']);
         }
 
         $result->orderBy(Post::TABLE . '.id', 'desc');
@@ -88,5 +88,24 @@ class PostRepository extends BaseRepository
     public function getById( $id = 0 )
     {
         return Post::find($id);
+    }
+
+    /**
+     * get auto increment
+     * @param $id
+     */
+    public function viewCount( $id )
+    {
+       return Post::find($id)->increment('views', 50);
+    }
+
+    /**
+     * get auto decrement
+     * @param $id
+     * @return mixed
+     */
+    public function decrementCount( $id )
+    {
+        return Post::find($id)->decrement('views',20);
     }
 }

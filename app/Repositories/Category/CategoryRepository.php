@@ -40,4 +40,9 @@ class CategoryRepository extends BaseRepository
         $result->orderBy(Category::TABLE . '.id', 'desc');
         return empty($limit) ? $result->get() : $result->paginate(config('pagination.per_page'));
     }
+
+    public function getParentCategory()
+    {
+       return Category::whereRaw('parent_id=0');
+    }
 }

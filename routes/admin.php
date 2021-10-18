@@ -25,6 +25,12 @@ Route::prefix('acp')->group(function () {
     Route::group(['middleware' => 'backend'], function () {
         Route::get('/', [DashboardController::class, 'index'])->name('backend.dashboard.index');
 
+        // Demo
+        Route::prefix('demo')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Backend\Demo\DemoController::class, 'index'])->name('backend.demo.index');
+        });
+
+
         //Category
         Route::prefix('category')->group(function () {
             Route::get('/', [\App\Http\Controllers\Backend\Category\CategoryController::class, 'index'])->name('backend.category.index');

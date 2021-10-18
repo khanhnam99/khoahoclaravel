@@ -98,6 +98,7 @@ class PostController extends BackendController
             $post = $this->postRepos->create($params);
             $this->postLangRepos->insert($locales,$post->id);
 
+            // upload file
             if ($request->hasfile('files')) {
                 $aImage = [];
                 foreach($request->file('files') as $key => $file)

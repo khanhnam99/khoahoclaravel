@@ -31,4 +31,8 @@ class Post extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    public function postsLang(){
+        return $this->hasMany(PostLang::class,'post_id');
+    }
 }
