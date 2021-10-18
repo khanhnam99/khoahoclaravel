@@ -4,6 +4,7 @@ namespace App\Http\Requests\Backend\Posts;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Lang;
+
 //use Illuminate\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
@@ -36,33 +37,38 @@ class PostRequest extends FormRequest
             'locales.en.name' => 'bail|required|max:255',
         ];
 
-//        $photos = count(request()->file('files'));
-//        foreach(range(0, $photos) as $index) {
-//            $rules['files.' . $index] = 'nullable|image|mimes:jpeg,bmp,png|max:2000';
-//        }
+        if ( request()->hasfile('files') ) {
+
+            $photos = count(request()->file('files'));
+            foreach ( range(0, $photos) as $index ) {
+                $rules['files.' . $index] = 'nullable|image|mimes:jpeg,bmp,png|max:2000';
+            }
+        }
 
         return $rules;
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
             'locales.vi.name.required' => Lang::get('category/create.name'),
             'locales.en.name.required' => Lang::get('account/create.enter_full_name'),
         ];
     }
 
-    public function withValidator($validator){
-       // return back()->withInput();
+    public function withValidator( $validator )
+    {
+        // return back()->withInput();
     }
 
-    protected function failedValidation(Validator $validator)
+    protected function failedValidation( Validator $validator )
     {
-       // return back()->withInput();
+        // return back()->withInput();
 //        return redirect()->to($this->getRedirectUrl())
 //            ->withInput($request->input())
 //            ->withErrors($errors, $this->errorBag());
 //
-        throw (new ValidationException($validator))
+        throw ( new ValidationException($validator) )
             ->errorBag($this->errorBag)
             ->redirectTo($this->getRedirectUrl());
     }
