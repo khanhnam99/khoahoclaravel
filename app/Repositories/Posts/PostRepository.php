@@ -38,7 +38,6 @@ class PostRepository extends BaseRepository
             CategoryLang::TABLE . '.description as category_description',
             PostLang::TABLE . '.name',
             PostLang::TABLE . '.description',
-            PostLang::TABLE . '.description',
             PostLang::TABLE . '.short_description',
         );
         //$result->leftJoin(Category::TABLE, Category::TABLE.'.id', '=', Post::TABLE.'.category_id');
