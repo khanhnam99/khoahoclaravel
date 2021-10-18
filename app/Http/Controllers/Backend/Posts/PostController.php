@@ -35,13 +35,18 @@ class PostController extends BackendController
     public function index( Request $request )
     {
 
-        $params = $request->only(['keyword', 'status']);
-        $category = $this->postRepos->getAll($params,10);
+        $params = $request->only([
+            'keyword',
+            'status',
+            'category_id',
+            'keyword',
+        ]);
+        $category = $this->postRepos->getAll($params);
         $total = !empty($category->total()) ? $category->total() : 0;
         $perPage = !empty($category->perPage()) ? $category->perPage() : 1;
         $this->data['items'] = $category;
         $page = !empty($request->page) ? $request->page : 1;
-        $url = route('backend.category.index') . '?' . Arr::query($params);
+        $url = route('backend.posts.index') . '?' . Arr::query($params);
         $this->data['offset'] = ( ( $page - 1 ) * $perPage ) + 1;
         $this->data['pager'] = PaginationHelper::BackendPagination($total, $perPage, $page, $url);
         return view('components.backend.posts.index', $this->data);

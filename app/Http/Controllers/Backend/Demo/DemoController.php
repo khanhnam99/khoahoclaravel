@@ -9,6 +9,10 @@ class DemoController extends Controller
 {
     //
 
+    public function __construct()
+    {
+    }
+
     public function index(){
         $user = Auth()->guard('backend')->user()->toArray();
         print_r($user);
