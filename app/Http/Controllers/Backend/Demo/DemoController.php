@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Backend\Demo;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\NewJob;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Posts\PostRepository;
 use App\Repositories\Roles\RoleRepository;
 use App\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DemoController extends Controller
 {
@@ -27,6 +29,28 @@ class DemoController extends Controller
     }
 
     public function index(){
+
+
+        //observe
+        $pInsert = [
+            'status'=>1
+        ];
+        $this->postRepos->create($pInsert);
+
+        exit;
+
+        //job
+        //dispatch(new NewJob(1));
+        //NewJob::dispatch(1);
+
+
+//        $emailJob = (new NewJob(2))->delay(Carbon::now()->addSeconds(10));
+//        dispatch($emailJob);
+
+       // NewJob::dispatch()->delay(now()->addMinutes(10));
+        NewJob::dispatch(3)->delay(now()->second(30));
+        echo 1;
+        exit;
 
         //image
         $post = $this->postRepos->getById(21);
