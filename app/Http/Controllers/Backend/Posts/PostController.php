@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Posts;
 
 use App\Helpers\PaginationHelper;
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\BackendController;
 use App\Http\Requests\Backend\Posts\PostRequest;
 use App\Models\Images\Image;
@@ -139,6 +140,12 @@ class PostController extends BackendController
 
     public function destroy( Request $request )
     {
-        //
+
+        $html = view('components.backend.posts.ajax-delete', $this->data)->render();
+        //$returnHTML = view("{$this->data['view']}.services.item-cart")->with('services_ids', $cart['services_ids'])->render();
+        $data = [
+            'sHtml'=>$html
+        ];
+        return ResponseHelper::success('Success',$data);
     }
 }

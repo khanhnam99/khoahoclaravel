@@ -42,6 +42,7 @@ Route::prefix('acp')->group(function () {
             Route::get('/', [\App\Http\Controllers\Backend\Posts\PostController::class, 'index'])->name('backend.posts.index');
             Route::get('/create', [\App\Http\Controllers\Backend\Posts\PostController::class, 'create'])->name('backend.posts.create');
             Route::post('/store', [\App\Http\Controllers\Backend\Posts\PostController::class, 'store'])->name('backend.posts.store');
+            Route::post('/delete', [\App\Http\Controllers\Backend\Posts\PostController::class, 'destroy'])->name('backend.posts.delete');
         });
 
 

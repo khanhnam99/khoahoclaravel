@@ -82,7 +82,7 @@
         </div>
     </div>
 
-    @include('components.backend.shared.modal',['urlRedirect' => Route('backend.category.index')])
+    @include('components.backend.shared.modal',['urlRedirect' => Route('backend.posts.index'),'urlDelete' => Route('backend.posts.delete')])
     <x-slot name="javascript">
         <script src="{{ asset('backend/assets/js/backend/common/delete.js') }}"></script>
     </x-slot>

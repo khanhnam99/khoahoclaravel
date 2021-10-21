@@ -1,0 +1,3 @@
+<div>
+    ajax delete
+</div>
