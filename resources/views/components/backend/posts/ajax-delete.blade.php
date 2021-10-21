@@ -1,3 +1,3 @@
 <div>
-    ajax delete
+    ajax delete dsffsfsf
 </div>

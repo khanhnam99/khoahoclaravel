@@ -6,6 +6,7 @@
                     <div class="col">
                         <div class="page-description">
                             <h1>Posts</h1>
+                            <div id="showContent"></div>
                         </div>
                     </div>
                 </div>
@@ -40,7 +41,7 @@
                                             <tbody>
                                             @if(!empty($items) && count($items) > 0)
                                                 @foreach($items as $item)
-                                                    <tr>
+                                                    <tr id="item_{{ $item->id }}">
                                                         <th scope="row">{{ $offset }}</th>
                                                         <td>{{ $item->name }}</td>
                                                         <td>{{ !empty($item->created_at) ? date('d/m/Y',strtotime($item->created_at)) : '' }}</td>

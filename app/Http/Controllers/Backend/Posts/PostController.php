@@ -7,6 +7,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Controllers\BackendController;
 use App\Http\Requests\Backend\Posts\PostRequest;
 use App\Models\Images\Image;
+use App\Models\Posts\Post;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Modules\ModuleRepository;
 use App\Repositories\Posts\PostLangRepository;
@@ -146,6 +147,19 @@ class PostController extends BackendController
         $data = [
             'sHtml'=>$html
         ];
+
+        $id = !empty($request->id) ? (int)$request->id : 0;
+
+
+        $postRestore = $this->postRepos->getAllRestore();
+
+        foreach($postRestore as $key => $value){
+            $this->postRepos->restoreId($value->id);
+        }
+
+        //$post->history()->restore();
+//        $post->delete();
+//        $post->postsLang()->delete();
         return ResponseHelper::success('Success',$data);
     }
 }

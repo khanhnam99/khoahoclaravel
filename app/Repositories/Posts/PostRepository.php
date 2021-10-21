@@ -90,13 +90,28 @@ class PostRepository extends BaseRepository
         return Post::find($id);
     }
 
+    public function restoreId( $id = 0 )
+    {
+        return Post::withTrashed()
+            ->where('id', (int) $id)
+            ->restore();
+    }
+
+
+    public function getAllRestore()
+    {
+        return Post::onlyTrashed()
+            ->whereNotNull('deleted_at')
+            ->get();
+    }
+
     /**
      * get auto increment
      * @param $id
      */
     public function viewCount( $id )
     {
-       return Post::find($id)->increment('views', 50);
+        return Post::find($id)->increment('views', 50);
     }
 
     /**
@@ -106,6 +121,6 @@ class PostRepository extends BaseRepository
      */
     public function decrementCount( $id )
     {
-        return Post::find($id)->decrement('views',20);
+        return Post::find($id)->decrement('views', 20);
     }
 }

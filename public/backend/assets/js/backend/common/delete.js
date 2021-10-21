@@ -23,15 +23,15 @@ $(document).ready(function () {
     function getMessage(id) {
         let urlDelete  = $('#urlDelete').val();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
-            }
-        });
-
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+        //     }
+        // });
+        var id = $('#item_id').val();
         let params = {
             'id':id,
-            // '_token':$('meta[name="token"]').attr('content')
+             '_token':$('meta[name="token"]').attr('content')
         }
         // $.ajaxSetup({
         //     headers: {
@@ -43,8 +43,13 @@ $(document).ready(function () {
             type:'POST',
             url:urlDelete,
             data:params,
-            success:function(data) {
-                $("#msg").html(data.msg);
+            success:function(json) {
+                $("#showContent").html(json.data.sHtml);
+                $('#showModalAction').modal('hide');
+                ///window.location.href = $('#urlRedirect').val();
+
+                $('#item_'+id).hide();
+                //window.location.reload();
             }
         });
     }

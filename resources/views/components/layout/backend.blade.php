@@ -516,5 +516,7 @@
 @if(isset($javascript))
     {{$javascript}}
 @endif
+
+
 </body>
 </html>
