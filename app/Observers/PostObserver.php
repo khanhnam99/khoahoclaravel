@@ -15,7 +15,7 @@ class PostObserver
      */
     public function created(Post $post)
     {
-        Log::info('log',['observe'=>'log']);
+        Log::info('log',['observe'=>'log','post'=>$post]);
     }
 
     /**
@@ -26,7 +26,7 @@ class PostObserver
      */
     public function updated(Post $post)
     {
-        //
+        Log::info('updated',['observe'=>'log','status'=>$post->status]);
     }
 
     /**

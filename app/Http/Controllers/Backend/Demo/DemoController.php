@@ -31,11 +31,15 @@ class DemoController extends Controller
     public function index(){
 
 
-        //observe
-        $pInsert = [
-            'status'=>1
-        ];
-        $this->postRepos->create($pInsert);
+       // observe
+//        $pInsert = [
+//            'status'=>1
+//        ];
+//        $this->postRepos->create($pInsert);
+
+//        $post = $this->postRepos->getById(25);
+//        $post->status = 2;
+//        $post->save();
 
         exit;
 
@@ -44,13 +48,25 @@ class DemoController extends Controller
         //NewJob::dispatch(1);
 
 
-//        $emailJob = (new NewJob(2))->delay(Carbon::now()->addSeconds(10));
+//        $p = [
+//            'hello'=>1,
+//            'hello2'=>2,
+//        ];
+//
+//        echo time();
+//        echo '<br>';
+//
+//        $emailJob = (new NewJob($p))->delay(Carbon::now()->addSeconds(30));
 //        dispatch($emailJob);
+//
+//        echo time();
+//        exit;
 
        // NewJob::dispatch()->delay(now()->addMinutes(10));
-        NewJob::dispatch(3)->delay(now()->second(30));
-        echo 1;
-        exit;
+
+//        NewJob::dispatch($p)->delay(now()->second(30));
+//        echo 1;
+//        exit;
 
         //image
         $post = $this->postRepos->getById(21);

@@ -8,25 +8,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 
-class NewJob implements ShouldQueue
+class TestJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    //https://allaravel.com/blog/laravel-queue-xu-ly-cong-viec-kieu-hang-doi
-    protected $booking = [];
-    //public $tries = 3;
-    //public $timeout = 60;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($booking)
+    public function __construct()
     {
         //
-        $this->booking = $booking;
     }
 
     /**
@@ -36,7 +30,6 @@ class NewJob implements ShouldQueue
      */
     public function handle()
     {
-        // gởi mail
-        Log::error('ss',['sss'=>$this->booking]);
+        //
     }
 }
