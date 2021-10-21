@@ -22,9 +22,16 @@ $(document).ready(function () {
 
     function getMessage(id) {
         let urlDelete  = $('#urlDelete').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+            }
+        });
+
         let params = {
             'id':id,
-            '_token':$('meta[name="token"]').attr('content')
+            // '_token':$('meta[name="token"]').attr('content')
         }
         // $.ajaxSetup({
         //     headers: {
