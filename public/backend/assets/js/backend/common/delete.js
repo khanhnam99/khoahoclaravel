@@ -24,7 +24,7 @@ $(document).ready(function () {
         let urlDelete  = $('#urlDelete').val();
         let params = {
             'id':id,
-            '_token':$('meta[name="csrf-token"]').attr('content')
+            '_token':$('meta[name="token"]').attr('content')
         }
         // $.ajaxSetup({
         //     headers: {
