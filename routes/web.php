@@ -21,3 +21,4 @@ Route::get('/', function () {
 Route::any('test', [\App\Http\Controllers\Frontend\User\UserController::class, 'index'])->name('frontend.user.index');
 Route::any('acp/login', [\App\Http\Controllers\Auth\BackendLoginController::class, 'login'])->name('backend.admin.login');
 
+Route::get('/products', [\App\Http\Controllers\Frontend\Products\ProductController::class, 'index'])->name('frontend.product.index');
