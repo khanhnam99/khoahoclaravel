@@ -19,6 +19,11 @@ Route::get('/', function () {
 
 // For User
 Route::any('test', [\App\Http\Controllers\Frontend\User\UserController::class, 'index'])->name('frontend.user.index');
+Route::any('login', [\App\Http\Controllers\Auth\FrontendLoginController::class, 'login'])->name('frontend.auth.login');
 Route::any('acp/login', [\App\Http\Controllers\Auth\BackendLoginController::class, 'login'])->name('backend.admin.login');
 
 Route::get('/products', [\App\Http\Controllers\Frontend\Products\ProductController::class, 'index'])->name('frontend.product.index');
+
+Route::group(['middleware' => 'frontend'], function () {
+
+});

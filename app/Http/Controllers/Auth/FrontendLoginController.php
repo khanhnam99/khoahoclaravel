@@ -11,44 +11,41 @@ use Illuminate\Support\Facades\Auth;
 use Session;
 
 
-class BackendLoginController extends BackendController
+class FrontendLoginController extends Controller
 {
 
     private $data = [];
 
     public function __construct()
     {
-        $this->guard = "backend";
+        $this->guard = "web";
     }
 
-    public function create( Request $request )
-    {
-
-    }
 
     public function login( Request $request )
     {
-        $user = Auth::guard('backend')->user();
+        $user = Auth::guard('web')->user();
         if ( $user ) {
-            return redirect(Route('backend.dashboard.index'));
+            return redirect(Route('frontend.product.index'));
         }
 
         if ( $request->getMethod() == 'POST' ) {
             $credentials = [
                 'email' => $request->email,
-                'password' => $request->password,
-                'status' => 1];
+                'password' => $request->password];
 
-            if ( Auth::guard('backend')->attempt($credentials, true) ) {
+            if ( Auth::guard('web')->attempt($credentials, true) ) {
                 //$request->session()->regenerate();
-                return redirect(Route('backend.dashboard.index'));
+                return redirect(Route('frontend.product.index'));
 
             }
             return back()->withErrors([
                 'error' => 'Please check your password and email.',
             ]);
+
         }
-        $this->data['urlRedirect'] = Route('backend.admin.login');
+
+        $this->data['urlRedirect'] = Route('frontend.auth.login');
         return View('components.backend.users.login', $this->data);
     }
 

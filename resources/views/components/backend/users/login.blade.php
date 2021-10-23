@@ -6,7 +6,7 @@
 
 
 
-        <form method="post" action="{{ Route('backend.admin.login') }}" id="fLogin">
+        <form method="post" action="{{ $urlRedirect }}" id="fLogin">
 
             @csrf
         <div class="app-auth-container">
