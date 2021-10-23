@@ -35,8 +35,11 @@ class FrontendLoginController extends Controller
                 'password' => $request->password];
 
             if ( Auth::guard('web')->attempt($credentials, true) ) {
+                $value = $request->session()->get('url');
+//                echo  $urlPrevious = url()->previous();
+//                exit;
                 //$request->session()->regenerate();
-                return redirect(Route('frontend.product.index'));
+                return redirect($value);
 
             }
             return back()->withErrors([

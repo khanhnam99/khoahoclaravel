@@ -26,9 +26,10 @@ class FrontendMiddleware
 
         // return Auth::onceBasic() ?: $next($request);
         if ( !Auth::guard('web')->user() ) {
-
+            $url = $request->url();
+            session(['url' => $url]);
            // return redirect()->intended(route('backend.admin.login'));
-            return redirect(Route('backend.admin.login'));
+            return redirect(Route('frontend.auth.login'));
         }
 
 //            $menu = [];

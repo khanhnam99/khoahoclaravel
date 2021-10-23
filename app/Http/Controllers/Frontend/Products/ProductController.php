@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers\Frontend\Products;
 
+use App\Enums\UserType;
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Repositories\Posts\PostRepository;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    protected $data = [];
+    protected $postRepos;
+    public function __construct(PostRepository $postRepos)
+    {
+        $this->postRepos = $postRepos;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,26 +25,34 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //Cart::add('293ad', 'Product 1', 1, 9.99, 550);
-        $co = Cart::content();
-        dd($co);
+        $this->postRepos->create([
+            'status' => UserType::Active,
+        ]);
 
-//        Cart::add('293ad', 'Product 1', 1, 9.99, 550);
-//        $ss = Cart::content();
-//        dd($ss);
-//        echo 1;
-//        exit;
-        return 1;
+        Cart::add('293ad', 'Product 1', 1, 9.99, 550);
+        $this->data['products'] = Cart::content();
+
+        return view('components.frontend.products.index',$this->data);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $quantity = $request->quantity ?? 1;
+        $rowId = $request->id;
+        $cartInfo = Cart::get($rowId);
+        if($cartInfo){
+            Cart::update($rowId, $quantity); // Will update the quantity
+        }
+        //Cart::add('293a1', 'Product 1', 1, 9.99, 550);
+        $data = [
+            'cartInfo'=>$cartInfo
+        ];
+        return ResponseHelper::success('thành công',$data);
+
     }
 
     /**
@@ -45,7 +63,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Cart::add('293ad', 'Product 1', 1, 9.99, 550);
+
     }
 
     /**
@@ -95,8 +113,14 @@ class ProductController extends Controller
         Cart::destroy();
     }
 
-    public function delete($id){
-        $rowId = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
+    public function delete(Request $request){
+        $rowId = $request->id;
+        $cartInfo = Cart::get($rowId);
+        if(!$cartInfo) {
+            return ResponseHelper::error('Sản phẩm này không tồn tại',[]);
+        }
+
         Cart::remove($rowId);
+        return ResponseHelper::success('thành công',[]);
     }
 }
