@@ -37,5 +37,6 @@ Route::group(['middleware' => 'frontend'], function () {
 
     // Payment
     Route::get('/payment', [\App\Http\Controllers\Frontend\Payment\PaymentController::class, 'index'])->name('frontend.payment.index');
+    Route::post('/order-payment', [\App\Http\Controllers\Frontend\Payment\PaymentController::class, 'orderPayment'])->name('frontend.payment.orderPayment');
 
 });

@@ -109,7 +109,7 @@
                     <button class="btn btn-block btn-light">Continue Shopping</button>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                    <button class="btn btn-lg btn-block btn-success text-uppercase" id="checkoutPayment">Checkout</button>
                 </div>
             </div>
         </div>
@@ -120,4 +120,26 @@
     <x-slot name="javascript">
         <script src="{{ asset('frontend/assets/js/products/cart.js') }}"></script>
     </x-slot>
+
+    <div class="modal fade" id="deleteCartModal" tabindex="-1" role="dialog" aria-labelledby="deleteCartModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteCartModal">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có muốn xóa không?
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" value="0" name="cart_id" id="cart_id" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="deleteOK">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </x-layout.frontend>

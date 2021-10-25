@@ -25,12 +25,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $this->postRepos->create([
-            'status' => UserType::Active,
-        ]);
+//        $this->postRepos->create([
+//            'status' => UserType::Active,
+//        ]);
 
-        Cart::add('293ad', 'Product 1', 1, 9.99, 550);
-        $this->data['products'] = Cart::content();
+        //Cart::add('2656', 'Product 3', 1, 9.99, 550);
+       $this->data['products'] = Cart::content();
 
         return view('components.frontend.products.index',$this->data);
     }
@@ -41,6 +41,10 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
+        // kiểm tra mã đơn hàng có tồn tại hay không?
+        // kiểm tra số lượng tồn nếu có
+
+        $product = $this->postRepos->find($request->id);
         $quantity = $request->quantity ?? 1;
         $rowId = $request->id;
         $cartInfo = Cart::get($rowId);
@@ -114,6 +118,7 @@ class ProductController extends Controller
     }
 
     public function delete(Request $request){
+
         $rowId = $request->id;
         $cartInfo = Cart::get($rowId);
         if(!$cartInfo) {

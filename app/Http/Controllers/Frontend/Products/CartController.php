@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     protected $data = [];
+
     public function __construct()
     {
     }
@@ -17,6 +18,14 @@ class CartController extends Controller
     public function index()
     {
         $this->data['products'] = Cart::content();
-        return view('components.frontend.cart.index',$this->data);
+        return view('components.frontend.cart.index', $this->data);
+    }
+
+    public function order( Request $request )
+    {
+
+
+
+
     }
 }
