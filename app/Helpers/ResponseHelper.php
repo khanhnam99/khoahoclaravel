@@ -41,4 +41,8 @@ class ResponseHelper
         self::$response['message'] = !empty($message) ? $message : '';
         return response()->json(self::$response);
     }
+
+    public static function all($data,$code = 200){
+        return response()->json($data,$code);
+    }
 }

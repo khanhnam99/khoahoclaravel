@@ -29,7 +29,7 @@ class ProductController extends Controller
 //            'status' => UserType::Active,
 //        ]);
 
-        //Cart::add('2656', 'Product 3', 1, 9.99, 550);
+        Cart::add('2656', 'Product 3', 1, 9.99, 550);
        $this->data['products'] = Cart::content();
 
         return view('components.frontend.products.index',$this->data);

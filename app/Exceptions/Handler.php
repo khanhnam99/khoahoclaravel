@@ -6,6 +6,11 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
+use Response;
+use Exception;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class Handler extends ExceptionHandler
 {
@@ -55,14 +60,13 @@ class Handler extends ExceptionHandler
             }
         });
 
-
     }
 
 
     public function render($request, Throwable $exception){
 
         if ($exception instanceof NotFoundHttpException) {
-            echo 1;
+            echo 'me not found';
             exit;
             return response()->view('errors.404', [], 404);
         }
