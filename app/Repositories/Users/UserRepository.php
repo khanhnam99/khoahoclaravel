@@ -29,6 +29,6 @@ class UserRepository extends BaseRepository
 
         $result->orderBy(User::TABLE . '.id', 'desc');
 
-        return empty($limit) ? $result->get() : $result->paginate(config('pagination.per_page'));
+        return empty($limit) ? $result->get() : $result->paginate($limit);
     }
 }

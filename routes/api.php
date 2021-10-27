@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\Users\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +33,13 @@ Route::prefix('v1')->group(function () {
 
         //users
         Route::prefix('users')->group(function () {
+            Route::get('/', [UserController::class,'index'])->name('api.users.index');
             Route::post('me', [\App\Http\Controllers\Auth\AuthController::class,'me'])->name('api.users.me');
             Route::post('logout', [\App\Http\Controllers\Auth\AuthController::class,'logout'])->name('api.users.logout');
             Route::post('refresh',  [\App\Http\Controllers\Auth\AuthController::class,'refresh'])->name('api.users.refresh');
         });
+
+        //Category
     });
 
 
