@@ -21,7 +21,6 @@ class JwtMiddleware extends BaseMiddleware
     public function handle( $request, Closure $next )
     {
         try {
-
             $user = JWTAuth::parseToken()->authenticate();
             if ( !$user ) {
                 return ResponseHelper::error('User Not Found', null);
@@ -32,7 +31,9 @@ class JwtMiddleware extends BaseMiddleware
             } else {
                 if ( $e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException ) {
                     return ResponseHelper::error('Token Expired', null);
-                } else {
+                } else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenBlacklistedException){
+                    return ResponseHelper::error(['status' => 'Token is Blacklisted'], null);
+                }else {
                     if ( $e->getMessage() === 'User Not Found' ) {
                         return ResponseHelper::error('User Not Found', null);
                     }

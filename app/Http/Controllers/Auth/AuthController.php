@@ -6,6 +6,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
@@ -13,6 +14,7 @@ class AuthController extends Controller
     {
         $this->guard = "api";
     }
+
     /**
      * Get a JWT via given credentials.
      *
@@ -20,12 +22,17 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $credentials = request(['email', 'password']);
-        if (! $token = Auth::guard('api')->attempt($credentials, true)) {
-            return ResponseHelper::all(['error' => 'Unauthorized'], 401) ;
+        try {
+            $credentials = request(['email', 'password']);
+            if ( !$token = Auth::guard('api')->attempt($credentials, true) ) {
+                return ResponseHelper::all(['error' => 'Unauthorized'], 401);
+            }
+
+            return $this->respondWithToken($token);
+        } catch ( JWTException $e ) {
+            return ResponseHelper::error($e->getMessage(), []);
         }
 
-        return $this->respondWithToken($token);
     }
 
     /**
@@ -35,7 +42,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return ResponseHelper::all(Auth::guard('api')->user());
+        return ResponseHelper::success('Thành công', Auth::guard('api')->user());
     }
 
     /**
@@ -45,8 +52,13 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        Auth::guard('api')->logout();
-        return ResponseHelper::all(['message' => 'Successfully logged out']);
+        try {
+            Auth::guard('api')->logout();
+            return ResponseHelper::success('Thành công', []);
+        } catch ( JWTException $exception ) {
+            return ResponseHelper::error('Fail', []);
+        }
+
     }
 
     /**
@@ -62,18 +74,17 @@ class AuthController extends Controller
     /**
      * Get the token array structure.
      *
-     * @param  string $token
+     * @param string $token
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
+    protected function respondWithToken( $token )
     {
-        return ResponseHelper::all(
-            [
-                'access_token' => $token,
-                'token_type' => 'bearer',
-                'expires_in' => Auth::guard('api')->factory()->getTTL() * 60
-            ]
-        );
+        $data = [
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => Auth::guard('api')->factory()->getTTL() * 60
+        ];
+        return ResponseHelper::success('Thành công', $data);
     }
 }
