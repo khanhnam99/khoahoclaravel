@@ -23,7 +23,7 @@ class UserTableSeeder extends Seeder
 //            'password' => Hash::make('123456')
 //        ]);
 
-        for ($i = 1 ; $i <= 100; $i++) {
+        for ($i = 1 ; $i <= 1000; $i++) {
             DB::table('users')->insert([
                 'name' => 'Stephen Nguyen',
                 'email' =>$i.'admin@gmail.com',
