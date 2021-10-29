@@ -31,4 +31,8 @@ class UserRepository extends BaseRepository
 
         return empty($limit) ? $result->get() : $result->paginate($limit);
     }
+
+    public function getById($id) {
+        return User::find($id);
+    }
 }

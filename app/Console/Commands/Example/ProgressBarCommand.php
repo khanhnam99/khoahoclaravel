@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Console\Commands\Demo;
+namespace App\Console\Commands\Example;
 
 use App\Repositories\Users\UserRepository;
 use Illuminate\Console\Command;
 
-class SendEmailsCommand extends Command
+class ProgressBarCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'mail:send {user} {booking}';
+    protected $signature = 'khlt:user';
+    protected $userRepos;
+
 
     /**
      * The console command description.
@@ -20,10 +22,9 @@ class SendEmailsCommand extends Command
      * @var string
      */
     protected $description = 'Command description';
-    protected $userRepos;
 
     /**
-     * SendEmailsCommand constructor.
+     * ProgressBarCommand constructor.
      * @param UserRepository $userRepos
      */
     public function __construct(UserRepository $userRepos)
@@ -39,13 +40,12 @@ class SendEmailsCommand extends Command
      */
     public function handle()
     {
-        $name = $this->anticipate('What is your name?', ['Taylor', 'Dayle']);
-
-        $address = $this->anticipate('What is your address?', function ($input) {
-            // Return auto-completion options...
-        });
-
-
-
+        $name = $this->ask('What is your name?');
+        $this->newLine(1);
+        $password = $this->secret('What is the password?');
+        $this->newLine(2);
+        $this->error('Something went wrong!');
+        $this->newLine(2);
+        $this->info('The command was successful!');
     }
 }

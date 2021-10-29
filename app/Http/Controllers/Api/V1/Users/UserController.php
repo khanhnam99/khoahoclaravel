@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Api\V1\Users;
 use App\Enums\IssetType;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Users\UserResource;
+use App\Models\Users\User;
 use App\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -17,10 +20,19 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $params = $request->all();
-        $limit = $request->limit ?? config('pagination.per_page');
-        $users = $this->userRepos->getAll($params,$limit);
-        $result = $users->toArray();
+        //$user = Auth::guard('api')->user();
+
+        $user = User::find(1);
+//        $params = $request->all();
+//        $limit = $request->limit ?? config('pagination.per_page');
+//        $users = $this->userRepos->getAll($params,$limit);
+//        $result = $users->toArray();
+
+        $data = new UserResource($user);
+        return ResponseHelper::success('Success',$data);
+        exit;
+
+
         $data = [
             'users'=> count($users) > IssetType::Zero ? $result['data'] : [],
             'products'=>[],
