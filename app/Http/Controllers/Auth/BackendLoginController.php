@@ -47,6 +47,7 @@ class BackendLoginController extends BackendController
             return back()->withErrors([
                 'error' => 'Please check your password and email.',
             ]);
+           // return back()->withInput($request->input())->withErrors($validator->errors());
         }
         $this->data['urlRedirect'] = Route('backend.admin.login');
         return View('components.backend.users.login', $this->data);
