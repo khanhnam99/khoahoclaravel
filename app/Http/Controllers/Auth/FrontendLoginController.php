@@ -36,13 +36,14 @@ class FrontendLoginController extends Controller
 
             if ( Auth::guard('web')->attempt($credentials, true) ) {
                 $value = $request->session()->get('url');
-                return redirect($value);
-
+                if($value) {
+                    return redirect($value);
+                }
+                return redirect(Route('frontend.product.index'));
             }
             return back()->withErrors([
                 'error' => 'Please check your password and email.',
             ]);
-
         }
 
         $this->data['urlRedirect'] = Route('frontend.auth.login');
