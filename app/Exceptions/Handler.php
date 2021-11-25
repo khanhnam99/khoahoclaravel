@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -56,6 +57,7 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (MethodNotAllowedHttpException $e, $request) {
             if ($request->is('acp/*')) {
+                Log::error($e->getMessage());
                 return redirect()->route('backend.dashboard.index');
             }
         });

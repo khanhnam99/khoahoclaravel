@@ -36,9 +36,6 @@ class FrontendLoginController extends Controller
 
             if ( Auth::guard('web')->attempt($credentials, true) ) {
                 $value = $request->session()->get('url');
-//                echo  $urlPrevious = url()->previous();
-//                exit;
-                //$request->session()->regenerate();
                 return redirect($value);
 
             }
