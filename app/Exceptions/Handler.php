@@ -67,10 +67,9 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception){
 
-        echo 1;
-        exit;
+
         $status = $exception->getStatusCode();
-        dd($status);
+        dd('me not found',$status);
         if ($exception instanceof NotFoundHttpException) {
             echo 'me not found';
             exit;

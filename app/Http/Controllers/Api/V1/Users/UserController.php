@@ -20,6 +20,8 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        echo 1433333;
+        exit;
         //$user = Auth::guard('api')->user();
 
         $user = User::find(1);

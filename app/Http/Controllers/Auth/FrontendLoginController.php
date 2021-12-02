@@ -52,8 +52,8 @@ class FrontendLoginController extends Controller
 
     public function logout()
     {
-        if ( Auth()->guard('backend')->user()->id ) {
-            Auth()->guard('backend')->logout();
+        if ( Auth()->guard('web')->user()->id ) {
+            Auth()->guard('web')->logout();
         }
         return redirect(Route('backend.auth.login'));
     }
