@@ -16,7 +16,6 @@ class ProductReview extends Model
         'title',
         'rating',
         'published',
-        'createdAt',
         'publishedAt',
         'content'
     ];
